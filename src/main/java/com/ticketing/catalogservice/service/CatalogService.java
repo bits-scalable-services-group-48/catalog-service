@@ -3,7 +3,6 @@ package com.ticketing.catalogservice.service;
 import com.ticketing.catalogservice.dto.*;
 import com.ticketing.catalogservice.entity.*;
 import com.ticketing.catalogservice.repository.EventRepository;
-import com.ticketing.catalogservice.repository.EventSeatRepository;
 import com.ticketing.catalogservice.repository.VenueRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,6 @@ public class CatalogService {
 
     private final EventRepository eventRepository;
     private final VenueRepository venueRepository;
-    private final EventSeatRepository eventSeatRepository;
 
     // ---------- VENUES CRUD ----------
 
@@ -141,13 +139,6 @@ public class CatalogService {
 
     // ---------- SEATS (canonical inventory) ----------
 
-    public List<EventSeatDto> getSeatsForEvent(Long eventId) {
-        List<EventSeat> seats = eventSeatRepository.findByEvent_Id(eventId);
-        return seats.stream()
-                .map(this::toEventSeatDto)
-                .toList();
-    }
-
     // ---------- MAPPERS ----------
 
     private VenueDto toVenueDto(Venue v) {
@@ -170,17 +161,6 @@ public class CatalogService {
                 .venueId(e.getVenue().getId())
                 .venueName(e.getVenue().getName())
                 .venueCity(e.getVenue().getCity())
-                .build();
-    }
-
-    private EventSeatDto toEventSeatDto(EventSeat s) {
-        return EventSeatDto.builder()
-                .id(s.getId())
-                .eventId(s.getEvent().getId())
-                .section(s.getSection())
-                .rowNumber(s.getRowNumber())
-                .seatNumber(s.getSeatNumber())
-                .price(s.getPrice())
                 .build();
     }
 }
