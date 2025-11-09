@@ -32,7 +32,7 @@ public class SeatController {
         return ResponseEntity.ok(seatService.getSeat(id));
     }
 
-    @GetMapping("/{eventId}/seats")
+    @GetMapping("events/{eventId}/seats")
     public ResponseEntity<?> getSeatsByEvent(@PathVariable Long eventId) {
         return ResponseEntity.ok(seatService.getSeatsByEvent(eventId));
     }
