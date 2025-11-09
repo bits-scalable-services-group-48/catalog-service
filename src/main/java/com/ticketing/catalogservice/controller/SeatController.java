@@ -32,9 +32,8 @@ public class SeatController {
         return ResponseEntity.ok(seatService.getSeat(id));
     }
 
-    @GetMapping("/seats")
-    public ResponseEntity<List<SeatResponseDto>> getSeatsByEvent(
-            @RequestParam("eventId") Long eventId) {
+    @GetMapping("/{eventId}/seats")
+    public ResponseEntity<?> getSeatsByEvent(@PathVariable Long eventId) {
         return ResponseEntity.ok(seatService.getSeatsByEvent(eventId));
     }
 
@@ -50,6 +49,7 @@ public class SeatController {
         seatService.deleteSeat(id);
         return ResponseEntity.noContent().build();
     }
+
 
     // ---- Bulk generation for event ----
     // POST /v1/events/{eventId}/seats/generate
@@ -67,4 +67,5 @@ public class SeatController {
                 )
         );
     }
+
 }
