@@ -1,5 +1,5 @@
 server:
-  port: 8081   # catalog-service
+  port: 8081
 
 spring:
   application:
@@ -15,7 +15,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update   # let hibernate sync schema after SQL runs
+      ddl-auto: create-drop   # Auto-create tables for tests
     show-sql: true
     properties:
       hibernate:
@@ -23,11 +23,6 @@ spring:
         jdbc:
           time_zone: UTC
         format_sql: true
-
-  sql:
-    init:
-      mode: always
-      schema-locations: classpath:schema.sql
 
 management:
   endpoints:
